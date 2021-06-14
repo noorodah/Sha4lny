@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class regPage2Activity extends AppCompatActivity {
 String fullName,Age,loc,phone,username,password,job;
@@ -77,6 +80,9 @@ EditText edtUserName,edtPassword,edtPasswordConfirm,edtJob;
                 else if ( edtUserName.getText().toString().length()<3 )
                     Toast.makeText(regPage2Activity.this, "اسم المستخدم يجب الا يقل عن 3 منازل", Toast.LENGTH_SHORT).show();
 
+                else if(edtUserName.getText().toString().contains(" ") )
+                    Toast.makeText(regPage2Activity.this, "اسم المستخدم يجب الا يحتوي على فراغات", Toast.LENGTH_SHORT).show();
+
                 else if(edtPassword.getText().toString().length() <6)
                     Toast.makeText(regPage2Activity.this, "كلمة السر يجب الا تقل عن 6 منازل", Toast.LENGTH_SHORT).show();
 
@@ -90,7 +96,9 @@ EditText edtUserName,edtPassword,edtPasswordConfirm,edtJob;
                     username = edtUserName.getText().toString();
                     password = edtPassword.getText().toString();
                     job= edtJob.getText().toString();
-                    user = new User(username,fullName,password,Age,phone,loc,job);
+                    ArrayList<String>temp = new ArrayList<>();
+                    temp.add("none");
+                    user = new User(username,fullName,password,Age,phone,loc,job,temp);
                     Query query = myRef.orderByChild("username").equalTo(edtUserName.getText().toString());
                     ValueEventListener eventListener = new ValueEventListener() {
                         @Override
@@ -99,6 +107,8 @@ EditText edtUserName,edtPassword,edtPasswordConfirm,edtJob;
                             if(!snapshot.exists()) {
                                 myRef.push().setValue(user);
                                 Toast.makeText(regPage2Activity.this, "تم تسجيلك بنجاح", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(regPage2Activity.this,com.example.sha4lny.login.loginActivity.class);
+                                startActivity(intent);
                             }
                             else
                                 Toast.makeText(regPage2Activity.this, "اسم المستخدم ماخوذ بالفعل", Toast.LENGTH_SHORT).show();

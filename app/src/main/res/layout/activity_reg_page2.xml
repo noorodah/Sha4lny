@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:paddingTop="40dp"
     tools:context=".register.regPage2Activity">
     <LinearLayout
         android:layout_margin="30dp"
@@ -16,6 +17,7 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegUserName"
+            android:digits="@string/app_lan"
             android:hint="الاسم الذي ستستعمله لتسجيل الدخول"
             ></EditText>
         <TextView

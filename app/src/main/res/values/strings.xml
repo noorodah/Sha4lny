@@ -1,3 +1,75 @@
 <resources>
     <string name="app_name">Sha4lny</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_lan">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
+    <string-array name="jobTitle_array">
+        <item>بلاط</item>
+        <item>دهان</item>
+        <item>مصنع</item>
+        <item>مواصير</item>
+        <item>كهرباء</item>
+        <item>بناء</item>
+        <item>قصارة</item>
+        <item>حديد</item>
+        <item>المنيوم</item>
+        <item>حدادة</item>
+        <item>سوبرماركت</item>
+        <item>محل البسة</item>
+        <item>مطعم</item>
+        <item>تحفير</item>
+    </string-array>
+    <string-array name="jobs_array">
+        <item>بليط</item>
+        <item>دهان</item>
+        <item>عامل</item>
+        <item>كهربجي</item>
+        <item>موصرجي</item>
+        <item>حداد</item>
+        <item>كاشير</item>
+        <item>طباخ</item>
+        <item>معلم المنيوم</item>
+        <item>جرافة</item>
+        <item>قصير</item>
+        <item>بنا</item>
+
+    </string-array>
+    <string-array name="workingTime_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="paymentTime">
+        <item>يومي</item>
+        <item>اسبوعي</item>
+        <item>شهري</item>
+
+    </string-array>
+    <string-array name="cities_array">
+        <item>طولكرم</item>
+        <item>نابلس المدينة</item>
+        <item>رام الله</item>
+        <item>الخليل</item>
+        <item>اريحا</item>
+        <item>جنين</item>
+        <item>طوباس</item>
+        <item>البيرة</item>
+        <item>سلفيت</item>
+        <item>رفيديا</item>
+        <item>بيت لحم</item>
+    </string-array>
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect</item>
+        <item>Fixtures</item>
+        <item>Table</item>
+    </string-array>
 </resources>

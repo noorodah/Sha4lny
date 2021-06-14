@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="40dp"
+    tools:context=".srchForEmpFrag">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_weight="60"
+    android:layout_height="wrap_content">      <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_weight="20"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اعلن عن وظيفة شاغرة"
+        android:paddingHorizontal="20dp"
+        android:id="@+id/btnPostAJob"
+        android:layout_gravity="center"
+        ></Button>
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="20"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"></LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تفقد اعمالك المنشورة"
+            android:paddingHorizontal="20dp"
+            android:id="@+id/btnCheckPostedJobs"
+            android:layout_gravity="center"
+            ></Button>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"></LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_weight="60"
+       android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_weight="20"
+           android:layout_gravity="center_horizontal"
+           android:gravity="center_horizontal"
+           android:layout_height="wrap_content">
+
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="تفقد اهتماماتك"
+            android:paddingHorizontal="20dp"
+               android:gravity="center"
+               android:foregroundGravity="center_horizontal"
+               android:id="@+id/btnCheckInterestJobs"
+               android:layout_gravity="center"
+               ></Button>
+
+
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_weight="20"
+           android:orientation="horizontal"
+           android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="10"></LinearLayout>
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+
+               android:layout_weight="10"></LinearLayout>
+       </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_weight="20"
+           android:layout_height="wrap_content">
+
+
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+</LinearLayout>

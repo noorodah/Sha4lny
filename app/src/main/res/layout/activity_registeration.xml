@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:paddingTop="40dp"
     tools:context=".register.registerationActivity">
 
     <LinearLayout
@@ -41,7 +41,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تاريخ الميلاد :"></TextView>
+            android:text="العمر  :        "></TextView>
     </LinearLayout>
     <LinearLayout
         android:layout_margin="30dp"

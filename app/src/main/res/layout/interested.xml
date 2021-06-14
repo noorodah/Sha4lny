@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/interest_alert"
+    android:id="@+id/linearlayout"
+    android:layout_margin="20dp"
+    >
+
+
+    <!--
+        In the above cardview widget
+        cardelevation property will give elevation to your card view
+        card corner radius will provide radius to your card view
+        card background color will give background color to your card view
+        card max elevation will give the cardview maximum elevation
+        card prevent corner overlap will add padding to CardView on v20 and
+        before to prevent intersections between the Card content and rounded corners.
+        card use compact padding will add padding in API v21+ as well to have the same
+        measurements with previous versions.
+    -->
+
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/txtInterestMessageStatic"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textColor="#212529"
+            android:layout_marginStart="10dp"
+            android:text="مرحبا انا مهتم بهذه الوظيفة"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="15dp"
+
+            android:drawablePadding="2dp"
+            />
+        <Button
+            android:background="@drawable/message_background"
+            android:textColor="#ffd60a"
+            android:id="@+id/txtInterestMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:padding="4dp"
+            android:textSize="10dp"
+           android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="15dp"
+
+            />
+
+
+    </LinearLayout>

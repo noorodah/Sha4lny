@@ -100,10 +100,12 @@ public class loginActivity extends AppCompatActivity {
                    myRef.addValueEventListener(new ValueEventListener() {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                           boolean logged=false;
                        for (DataSnapshot data : snapshot.getChildren()){
                                 User user = data.getValue(User.class);
                                 if(user.getUsername().equals(username))
                                 {
+                                    logged=true;
                                     if(user.getPassword().equals(password))
                                     {   Toast.makeText(loginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_SHORT).show();
                                     editor.putString("username",username);
@@ -120,6 +122,7 @@ public class loginActivity extends AppCompatActivity {
 
 
                           }
+                       if(!logged)
                            Toast.makeText(loginActivity.this, "اسم المستخدم غير متوفر في قاعدة البيانات", Toast.LENGTH_SHORT).show();
 
                        }

@@ -1,9 +1,23 @@
 package com.example.sha4lny.classes;
 
+import java.util.ArrayList;
+
 public class User {
     String username,name,password,age,phone,location,job;
+    ArrayList<String> Contacts;
 
-    public User(String username, String name, String password, String age, String phone, String location, String job) {
+    public ArrayList<String> getContacts() {
+        return Contacts;
+    }
+
+    public void setContacts(ArrayList<String> contacts) {
+        Contacts = contacts;
+    }
+    public  void addContact(String contact){
+        Contacts.add(contact);
+    }
+
+    public User(String username, String name, String password, String age, String phone, String location, String job, ArrayList<String> contacts) {
         this.username = username;
         this.name = name;
         this.password = password;
@@ -11,7 +25,10 @@ public class User {
         this.phone = phone;
         this.location = location;
         this.job = job;
+        Contacts = contacts;
     }
+
+
 
     public String getUsername() {
         return username;
