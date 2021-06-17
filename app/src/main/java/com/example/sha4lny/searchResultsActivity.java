@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.sha4lny.classes.AcceptedJobs;
 import com.example.sha4lny.classes.Job;
 import com.example.sha4lny.classes.JobsModel;
 import com.example.sha4lny.classes.MessageOFIntereset;
@@ -69,6 +70,7 @@ messageOFInteresetsArrayList = new ArrayList<MessageOFIntereset>();
         user = gson.fromJson(userJson, User.class);
         searchType= sharedpreferences.getInt("searchType",-1);
 
+
         // RecyclerView work
         myRecycler = findViewById(R.id.myRecV);
         jobsModelArrayList = new ArrayList<>();
@@ -105,13 +107,13 @@ switch (searchType) {
 
                     if (job.getJobOwner().equals(user.getUsername())){
                         if(job.getJobType().equals("مصنع"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else if(job.getJobType().equals("مطعم"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.chef, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.rest_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else if(job.getJobType().equals("سوبرماركت") ||job.getJobType().equals("محل البسة"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.cashier, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.clerk, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else
-                            jobsModelArrayList.add(new JobsModel(R.drawable.worker, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.work_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
 
                         jobArrayList.add(job);
                     }
@@ -165,13 +167,13 @@ switch (searchType) {
                     for(int i =0;i<messageOFInteresetsArrayList.size();i++){
                         if ((job.getJobID().equals(messageOFInteresetsArrayList.get(i).getJobID()))){
                             if(job.getJobType().equals("مصنع"))
-                                jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                                jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                             else if(job.getJobType().equals("مطعم"))
-                                jobsModelArrayList.add(new JobsModel(R.drawable.chef, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                                jobsModelArrayList.add(new JobsModel(R.drawable.rest_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                             else if(job.getJobType().equals("سوبرماركت") ||job.getJobType().equals("محل البسة"))
-                                jobsModelArrayList.add(new JobsModel(R.drawable.cashier, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                                jobsModelArrayList.add(new JobsModel(R.drawable.clerk, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                             else
-                                jobsModelArrayList.add(new JobsModel(R.drawable.worker, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                                jobsModelArrayList.add(new JobsModel(R.drawable.work_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
 
                             jobArrayList.add(job);
                         }
@@ -199,6 +201,7 @@ switch (searchType) {
                 jobsModelArrayList.clear();
                 jobType = sharedpreferences.getString("jobType","");
                 jobCity= sharedpreferences.getString("jobCity","");
+                Toast.makeText(searchResultsActivity.this, jobType, Toast.LENGTH_SHORT).show();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     jobType = sharedpreferences.getString("jobType","");
                     Job job = data.getValue(Job.class);
@@ -206,13 +209,13 @@ switch (searchType) {
                         continue;
                     else if (job.getFreeSpot().equals(jobType) && job.getJobLoc().equals(jobCity)){
                         if(job.getJobType().equals("مصنع"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.factory, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else if(job.getJobType().equals("مطعم"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.chef, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.rest_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else if(job.getJobType().equals("سوبرماركت") ||job.getJobType().equals("محل البسة"))
-                            jobsModelArrayList.add(new JobsModel(R.drawable.cashier, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.clerk, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
                         else
-                            jobsModelArrayList.add(new JobsModel(R.drawable.worker, job.getPostTitle(), job.getJobType(), job.getFreeSpot()));
+                            jobsModelArrayList.add(new JobsModel(R.drawable.work_vector, job.getPostTitle(), job.getJobType(), job.getFreeSpot(),job.getJobOwnerName()));
 
                         jobArrayList.add(job);
                     }
@@ -248,26 +251,13 @@ switch (searchType) {
             {  Intent intent = new Intent(this,lookingForEmp.class);   startActivity(intent);}
             else if(jobArrayList.get(pos).isAccepted())
             {
-                database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot data : snapshot.getChildren()){
-                            MessageOFIntereset m = data.getValue(MessageOFIntereset.class);
-                            if(m.getJobID().equals(jobArrayList.get(pos).getJobID())&&m.isAccepted())
-                            {
-                                editor.putBoolean("fromChat",true);
-                                editor.putString("interestedPerson",m.getSender());
-                                editor.commit();
-                                Intent intent = new Intent(searchResultsActivity.this,jobApplication.class);  startActivity(intent);
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    editor.putBoolean("fromCheckPost",true);
 
-                    }
-                });
+                    editor.commit();
+
+                    Intent intent = new Intent(searchResultsActivity.this,jobApplication.class);  startActivity(intent);
+
                 }
 
         }
@@ -275,5 +265,11 @@ switch (searchType) {
 
         Intent intent = new Intent(this,jobApplication.class);
         startActivity(intent);}
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(searchResultsActivity.this,MainActivity.class);
+        startActivity(intent);
+
     }
 }

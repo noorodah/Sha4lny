@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,15 +75,29 @@ public class loginActivity extends AppCompatActivity {
         edtPass = findViewById(R.id.edtLoginPassword);
         edtUser= findViewById(R.id.edtLoginUser);
         //
-
-
-
-
-
-
-
-
-
+        edtUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {  edtUser.setGravity(Gravity.CENTER | Gravity.START); edtUser.setHint("");}
+                else
+                {edtUser.setGravity(Gravity.CENTER | Gravity.START);  edtUser.setHint("اسم المستخدم");}
+            }
+        });
+        edtPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {  edtPass.setGravity(Gravity.CENTER | Gravity.START); edtPass.setHint("");}
+                else
+                {
+                    if(edtPass.getText().toString().isEmpty())
+                    {edtPass.setGravity(Gravity.CENTER | Gravity.END);  edtPass.setHint("كلمة المرور");}
+                    else
+                    {edtPass.setGravity(Gravity.CENTER | Gravity.START); edtPass.setHint("");}
+              }
+            }
+        });
         // Login action starts
 
         btnLogIn.setOnClickListener(new View.OnClickListener() {

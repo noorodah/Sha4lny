@@ -13,16 +13,42 @@
     android:layout_height="wrap_content">      <LinearLayout
     android:layout_width="match_parent"
     android:layout_weight="20"
+    android:background="@color/Transparent"
     android:gravity="center_horizontal"
+    android:elevation="10dp"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_gravity="center"
+        android:background="@drawable/button_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+
+        android:orientation="horizontal">
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="اعلن عن وظيفة شاغرة"
-        android:paddingHorizontal="20dp"
+        android:text="اعلن عن وظيفة شاغرة جديدة"
+        android:textColor="#8361d2"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:paddingHorizontal="10dp"
         android:id="@+id/btnPostAJob"
+        android:background="@color/Transparent"
         android:layout_gravity="center"
-        ></Button>
+
+        >
+
+
+    </Button>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/add_asset"></ImageView>
+    </LinearLayout>
 
 
 </LinearLayout>
@@ -40,6 +66,11 @@
             android:layout_height="wrap_content"
             android:text="تفقد اعمالك المنشورة"
             android:paddingHorizontal="20dp"
+            android:background="@drawable/button_check"
+            android:textColor="#D66088"
+            android:textStyle="bold"
+            android:drawablePadding="10dp"
+            android:drawableEnd="@drawable/check_vector"
             android:id="@+id/btnCheckPostedJobs"
             android:layout_gravity="center"
             ></Button>
@@ -63,6 +94,11 @@
            android:layout_height="wrap_content">
 
            <Button
+               android:background="@drawable/check_interest_back"
+               android:textColor="#cc3300"
+               android:textStyle="bold"
+               android:drawableEnd="@drawable/ic_baseline_library_add_check_24"
+               android:drawablePadding="10dp"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="تفقد اهتماماتك"

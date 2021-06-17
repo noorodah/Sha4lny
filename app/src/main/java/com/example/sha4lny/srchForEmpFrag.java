@@ -98,6 +98,8 @@ Button btnPostAJob,btnShowPostedJobs,btnShowInterestedJobs;
          btnPostAJob.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+
+                 editor.putString("jobApp",null).commit();
                  Intent intent = new Intent(getActivity(),lookingForEmp.class);
                  startActivity(intent);
              }

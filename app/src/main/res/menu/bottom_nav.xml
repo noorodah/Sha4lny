@@ -2,25 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app ="http://schemas.android.com/apk/res-auto" >
 
-    <item android:title="البحث عن عامل"
-        android:icon="@drawable/ic_baseline_person_search_24"
-        android:id="@+id/nav_srch_worker"
-        app:cnb_backgroundColor="#ff785b"
+    <item android:title="الدردشة"
+
+
+        android:icon="@drawable/chat_vector"
+        app:cnb_backgroundColor="#8361d2"
         app:cnb_iconColor = "#fff"
+        android:id="@+id/nav_home"
         app:cnb_textColor = "#fff"
         />
 
 
     <item  android:icon="@drawable/ic_baseline_search_24"
         android:title="البحث عن عمل"
-        app:cnb_backgroundColor="#ff785b"
+        app:cnb_backgroundColor="#8361d2 "
         app:cnb_iconColor = "#fff"
         app:cnb_textColor = "#fff"
         android:id="@+id/nav_search"/>
     <item
-        android:title="الصفحة الشخصية"
-        app:cnb_backgroundColor="#ff785b"
+        android:title="الصفحة الرئيسية"
+        app:cnb_backgroundColor="#8361d2 "
         app:cnb_iconColor = "#fff"
         app:cnb_textColor = "#fff"
         android:icon="@drawable/ic_baseline_home_24"
-        android:id="@+id/nav_home"/></menu>
+        android:id="@+id/nav_srch_worker"
+       /></menu>

@@ -6,6 +6,15 @@ public class MessageOFIntereset {
     String jobTitle;
     String reciver;
     String senderFullName;
+    boolean acceptedByOther = false;
+
+    public boolean isAcceptedByOther() {
+        return acceptedByOther;
+    }
+
+    public void setAcceptedByOther(boolean acceptedByOther) {
+        this.acceptedByOther = acceptedByOther;
+    }
 
     public String getSenderFullName() {
         return senderFullName;

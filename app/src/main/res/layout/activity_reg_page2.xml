@@ -1,88 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:context=".register.regPage2Activity"
+android:background="@drawable/main_background"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_gravity="center_vertical"
+    android:paddingBottom="20dp"
+    android:background="@drawable/job_list_2"
+    android:elevation="20dp"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:paddingTop="40dp"
-    tools:context=".register.regPage2Activity">
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+   >
+
         <EditText
+            android:textColor="@color/white"
+
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginVertical="20dp"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegUserName"
             android:digits="@string/app_lan"
-            android:hint="الاسم الذي ستستعمله لتسجيل الدخول"
+            android:hint="اسم المستخدم"
             ></EditText>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="اسم المستخدم :"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="العمل"
+            android:textColorHint="@color/white"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegJob"
-
+            android:layout_marginVertical="20dp"
             ></EditText>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="الوظيفة :"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="كلمة المرور"
+            android:gravity="end"
+            android:textColorHint="@color/white"
             android:inputType="textPassword"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegPass"
+            android:layout_marginVertical="20dp"
             ></EditText>
-        <TextView
 
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="كلمة المرور :"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="اعد ادخال كلمة المرور"
+            android:gravity="end"
+            android:textColorHint="@color/white"
+            android:layout_marginVertical="20dp"
             android:inputType="textPassword"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegPassConfirm"
             ></EditText>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="ناكيد كلمة المرور :"></TextView>
-    </LinearLayout>
+
 
     <Button
+        android:background="@drawable/sender_bubble"
+        android:elevation="5dp"
+        android:layout_marginVertical="20dp"
         android:id="@+id/btnRegFinish"
         android:layout_width="200dp"
         android:layout_height="50dp"
@@ -92,4 +84,4 @@
 
     </Button>
 
-</LinearLayout>
+</LinearLayout></ScrollView>

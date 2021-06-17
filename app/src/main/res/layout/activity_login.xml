@@ -1,53 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+android:background="@drawable/main_background"
     tools:context=".login.loginActivity">
 
 
     <LinearLayout
+        android:background="@drawable/login_background"
+        android:elevation="5dp"
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="30dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="250dp"
+        android:gravity="center"
 
         >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+<ImageView
+    android:layout_width="150dp"
+    android:layout_height="match_parent"
+    android:src="@drawable/app_logo"
+    ></ImageView>
+
             <EditText
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_height="40dp"
+
+                android:hint="اسم المستخدم"
+                android:gravity="start|center"
+                android:drawablePadding="10dp"
+                android:paddingRight="20dp"
+                android:drawableEnd="@drawable/username"
+                android:layout_marginVertical="20dp"
                 android:id="@+id/edtLoginUser"></EditText>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="اسم المستخدم : "></TextView>
-                    </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+
+
             <EditText
+                android:backgroundTint="@color/white"
+                android:gravity="end|center"
+                android:drawablePadding="10dp"
+
+                android:paddingLeft="20dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:drawableEnd="@drawable/password"
+                android:hint="كلمة المرور"
+                android:paddingRight="20dp"
                 android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_height="40dp"
+
                 android:inputType="textPassword"
                 android:id="@+id/edtLoginPassword"></EditText>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="كلمة المرور :    "></TextView>
-        </LinearLayout>
+
         <Button
+            android:elevation="10dp"
+            android:background="@drawable/sender_bubble"
             android:id="@+id/btnSignIn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:textColor="#f72585"
+            android:textStyle="bold"
+            android:ems="13"
+            android:drawableStart="@drawable/ic_baseline_arrow_back_24"
+            android:paddingLeft="20dp"
             android:layout_marginTop="150dp"
             android:layout_gravity="center"
             android:text="تسجيل الدخول">
@@ -57,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtNotRegistered"
+            android:textColor="#ffffff"
             android:text="ليس لديك حساب؟ اضغط هنا"
             android:layout_gravity="center"
             android:layout_marginTop="15dp">
@@ -64,5 +90,4 @@
         </TextView>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

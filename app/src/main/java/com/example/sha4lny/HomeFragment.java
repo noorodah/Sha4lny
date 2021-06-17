@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment  implements  MessageAdapter.onChatCli
     public static final String MyPREFERENCES = "MyPrefs" ;
     User user;
     //
-
+    ArrayList<String >contacts;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -125,8 +125,8 @@ View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        ArrayList<String >contacts = user.getContacts();
-
+        contacts = user.getContacts();
+    contacts =  removeDuplicates(contacts);
         database.getReference("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -203,5 +203,25 @@ myRef.addValueEventListener(new ValueEventListener() {
 
         Intent intent = new Intent(getActivity(), ChatActivity.class);
        startActivity(intent);
+    }
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
+    {
+
+        // Create a new ArrayList
+        ArrayList<T> newList = new ArrayList<T>();
+
+        // Traverse through the first list
+        for (T element : list) {
+
+            // If this element is not present in newList
+            // then add it
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+
+        // return the new list
+        return newList;
     }
 }

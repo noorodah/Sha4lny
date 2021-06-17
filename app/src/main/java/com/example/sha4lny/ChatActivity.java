@@ -11,13 +11,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowInsets;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,25 +39,38 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.nio.file.SecureDirectoryStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener{
     //Recycle view things
 RecyclerView recyclerView;
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 List<ChatMessageModel> chatMessageModelList;
 /////
     ///// to check if in contacts
     boolean isInContacts;
 /////
-
+boolean added1=false,added2=false,added3=false,added4=false;
 
 TextView toolbarTitle;
 EditText edtChatText;
-ImageView imgSend;
+LinearLayout imgSend;
     Toolbar toolbar;
 
-
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
     // Shared prefereces for sessions
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
@@ -81,6 +98,10 @@ ImageView imgSend;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        if(!isNetworkAvailable())
+        {
+           new AlertDialog.Builder(this).setTitle("تحذير").setMessage("تعذر الاتصال بالانترنت").show();
+        }
         /// Firebase connection
       database  = FirebaseDatabase.getInstance("https://sha4lny-default-rtdb.europe-west1.firebasedatabase.app/");
         myRef = database.getReference("Messages");
@@ -130,33 +151,44 @@ ImageView imgSend;
                         public void onClick(DialogInterface dialog, int which) {
                             ArrayList<String> temp= userClass.getContacts();
                             temp.add(senderUserName);
-
+                            temp = HomeFragment.removeDuplicates(temp);
                             userClass.setContacts(temp);
                             database.getReference("Users").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                                     for(DataSnapshot data : snapshot.getChildren()){
                                         User user = data.getValue(User.class);
-                                        if(user.getUsername().equals(userClass.getUsername()))
+                                        if(user.getUsername().equals(userClass.getUsername())&&!added1)
                                         {
+                                            added1=true;
+                                            Toast.makeText(ChatActivity.this, "", Toast.LENGTH_SHORT).show();
                                             data.getRef().setValue(userClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح1", Toast.LENGTH_SHORT).show();
+
+
                                                 }
                                             });
+
                                         }
-                                        if(user.getUsername().equals(senderUserName)){
+                                        if(user.getUsername().equals(senderUserName)&& !added2){
+                                            added2=true;
                                             ArrayList<String> SenderTemp = user.getContacts();
                                             SenderTemp.add(userClass.getUsername());
+                                            SenderTemp = HomeFragment.removeDuplicates(SenderTemp);
                                             user.setContacts(SenderTemp);
                                             data.getRef().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح2", Toast.LENGTH_SHORT).show();
+
                                                 }
                                             });
+                                            break;
                                         }
+
 
 
                                     }
@@ -181,6 +213,23 @@ ImageView imgSend;
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 /////
 getSupportActionBar().setTitle("");
+
+        makeViewConsumeTopWindowInsetsOnly(toolbar);
+        toolbar.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                int b = v.getPaddingBottom();
+                int l = v.getPaddingLeft();
+                int r = v.getPaddingRight();
+
+                v.setPadding(l, insets.getSystemWindowInsetTop(), r, b);
+                int il = insets.getSystemWindowInsetLeft();
+                int ir = insets.getSystemWindowInsetRight();
+                int ib = insets.getSystemWindowInsetBottom();
+                return insets.replaceSystemWindowInsets(il, 0, ir, 0);
+
+            }
+        });
 
         /// adjusting views
         edtChatText=findViewById(R.id.edtMessage);
@@ -208,6 +257,7 @@ getSupportActionBar().setTitle("");
    adapter   = new ChatMessageAdapter(chatMessageModelList);
         recyclerView.setAdapter(adapter);
 
+
         adjustMessagesFromFirebase();
     }
 // Firebase work goes over here
@@ -228,11 +278,12 @@ getSupportActionBar().setTitle("");
                         for(DataSnapshot data : snapshot.getChildren()){
                             MessageOFIntereset messageOFIntereset = data.getValue(MessageOFIntereset.class);
 
-                            if(messageOFIntereset.getReciver().equals(userClass.getUsername()))
+                            if(messageOFIntereset.getReciver().equals(userClass.getUsername()) && messageOFIntereset.getSender().equals(senderUserName))
                                 if(!messageOFIntereset.isAccepted())
                                 chatMessageModelList.add(new ChatMessageModel(messageOFIntereset.getJobTitle(),messageOFIntereset.getJobID(),ChatMessageModel.LayoutThree,messageOFIntereset.getSender(),ChatActivity.this));
                         }
                         adapter.notifyDataSetChanged();
+                       if(chatMessageModelList.size()>0) recyclerView.smoothScrollToPosition(chatMessageModelList.size()-1);
                     }
 
                     @Override
@@ -252,6 +303,9 @@ getSupportActionBar().setTitle("");
                     }
                 }
                 adapter.notifyDataSetChanged();
+                if (chatMessageModelList.size()>0)
+                    recyclerView.smoothScrollToPosition(chatMessageModelList.size()-1);
+
             }
 
             @Override
@@ -287,15 +341,17 @@ getSupportActionBar().setTitle("");
                             public void onClick(DialogInterface dialog, int which) {
                                 ArrayList<String> temp= userClass.getContacts();
                                 temp.add(senderUserName);
-
+                                temp = HomeFragment.removeDuplicates(temp);
                                 userClass.setContacts(temp);
                                 database.getReference("Users").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        boolean added1=false,added2=false;
                                         for(DataSnapshot data : snapshot.getChildren()){
                                             User user = data.getValue(User.class);
-                                            if(user.getUsername().equals(userClass.getUsername()))
+                                            if(user.getUsername().equals(userClass.getUsername())&&!added3)
                                             {
+                                                added3=true;
                                                 data.getRef().setValue(userClass).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
@@ -303,19 +359,22 @@ getSupportActionBar().setTitle("");
                                                     }
                                                 });
                                             }
-                                            if(user.getUsername().equals(senderUserName)){
+                                            if(user.getUsername().equals(senderUserName) && !added4){
+                                                added4=true;
                                                 ArrayList<String> SenderTemp = user.getContacts();
                                                 SenderTemp.add(userClass.getUsername());
+                                                SenderTemp = HomeFragment.removeDuplicates(SenderTemp);
                                                 user.setContacts(SenderTemp);
                                                 data.getRef().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(ChatActivity.this, "تمت الاضافة بنجاح3", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                             }
 
                                         }
+
                                     }
 
                                     @Override
@@ -326,6 +385,32 @@ getSupportActionBar().setTitle("");
                             }
                         }).setNegativeButton("لا",null).show();
             }
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ChatActivity.this,MainActivity.class);
+        startActivity(intent);
+
+    }
+    private static final View.OnApplyWindowInsetsListener CONSUME_TOP_INSET_LISTENER = new View.OnApplyWindowInsetsListener() {
+
+        @Override
+        public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+            int b = v.getPaddingBottom();
+            int l = v.getPaddingLeft();
+            int r = v.getPaddingRight();
+
+            v.setPadding(l, insets.getSystemWindowInsetTop(), r, b);
+            int il = insets.getSystemWindowInsetLeft();
+            int ir = insets.getSystemWindowInsetRight();
+            int ib = insets.getSystemWindowInsetBottom();
+            return insets.replaceSystemWindowInsets(il, 0, ir, ib);
+        }
+    };
+    public static void makeViewConsumeTopWindowInsetsOnly(@NonNull View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            view.setOnApplyWindowInsetsListener(CONSUME_TOP_INSET_LISTENER);
         }
     }
 }

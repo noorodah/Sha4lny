@@ -1,91 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/contract"
-    android:fitsSystemWindows="true"
-    android:windowSoftInputMode="adjustResize"
+android:fitsSystemWindows="true"
+    android:background="@drawable/chat_background"
+
+
 
     tools:context=".ChatActivity">
-    <LinearLayout
-        android:background="@drawable/chat_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        
-        android:orientation="vertical">
-<androidx.appcompat.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/chatToolbar"
 
-    app:titleTextColor="#f1faee"
+    <include
+        android:id="@+id/chatToolbar"
+        layout="@layout/chat_toolbar"
 
-    android:background="@drawable/message_background"
-    >   <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Toolbar Title"
-    android:layout_gravity="end"
-    android:textColor="#f1faee"
-    android:layout_marginEnd="10dp"
-    android:textStyle="bold"
-    android:textSize="20dp"
-    android:id="@+id/toolbar_title" /></androidx.appcompat.widget.Toolbar>
+        />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="120">
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/chatToolbar"
+        android:layout_above="@id/ChatLinear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/chatRecycler"
+        android:layoutAnimation="@anim/layout_animation"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
         ></androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+
 
     <LinearLayout
-        android:layout_weight="15"
+
         android:layout_gravity="bottom"
         android:gravity="bottom"
         android:foregroundGravity="bottom"
-        android:background="@drawable/message_background"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:id="@+id/ChatLinear"
+        android:background="@drawable/message_background"
+        android:elevation="10dp"
+        android:layout_marginVertical="10dp"
         android:paddingBottom="8dp"
         android:layout_alignParentBottom="true"
+        android:padding="5dp"
         >
+
+        <LinearLayout
+
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:elevation="2dp"
+            android:id="@+id/imgSend"
+            android:background="@drawable/send_background">
+        <ImageView
+
+            android:layout_height="20dp"
+
+            android:layout_gravity="center"
+
+
+            android:layout_width="20dp"
+
+            android:src="@drawable/sender_new"></ImageView></LinearLayout>
         <EditText
 android:layout_width="0dp"
-            android:textColor="#f1faee"
+
+            android:gravity="center_vertical"
+            android:textColor="#39506A"
+            android:textSize="15dp"
+            android:paddingRight="10dp"
             android:outlineAmbientShadowColor="#f1faee"
             android:outlineSpotShadowColor="#f1faee"
             android:shadowColor="#f1faee"
             android:textColorHighlight="#f1faee"
-            android:textColorHint="#f1faee"
+            android:textColorHint="#39506A"
+            android:elevation="20dp"
             android:textColorLink="#f1faee"
-            android:backgroundTint="#f1faee"
+            android:backgroundTint="@color/Transparent"
             android:layout_weight="80"
             android:layout_marginStart="10dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:hint="اكتب رسالتك هنا"
             android:id="@+id/edtMessage"
 
             ></EditText>
-        <ImageView
 
-            android:layout_weight="20"
-            android:layout_height="30dp"
-
-            android:layout_gravity="bottom"
-            android:id="@+id/imgSend"
-
-            android:layout_width="0dp"
-            android:src="@drawable/sender_new"></ImageView>
     </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

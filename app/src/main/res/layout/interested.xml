@@ -6,9 +6,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/interest_alert"
+    android:background="@drawable/interested_bubble"
+    android:elevation="10dp"
     android:id="@+id/linearlayout"
     android:layout_margin="20dp"
+
     >
 
 
@@ -34,7 +36,8 @@
             android:id="@+id/txtInterestMessageStatic"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:textColor="#212529"
+            android:textColor="@color/white"
+            android:elevation="5dp"
             android:layout_marginStart="10dp"
             android:text="مرحبا انا مهتم بهذه الوظيفة"
             android:layout_marginTop="5dp"
@@ -44,8 +47,8 @@
             android:drawablePadding="2dp"
             />
         <Button
-            android:background="@drawable/message_background"
-            android:textColor="#ffd60a"
+            android:background="@drawable/button_bubble"
+            android:textColor="#39506A"
             android:id="@+id/txtInterestMessage"
             android:layout_width="wrap_content"
             android:layout_height="30dp"

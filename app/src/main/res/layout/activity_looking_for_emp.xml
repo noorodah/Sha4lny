@@ -1,57 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".lookingForEmp"
-    android:paddingTop="40dp"
+    android:layout_height="match_parent" >
+
+<LinearLayout
+    android:orientation="vertical"
+
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
     >
+    <include layout="@layout/toolbar">
+    </include>
+
 
     <EditText
+
+        android:textSize="15dp"
+        android:elevation="4dp"
+        android:background="@drawable/post_job_1"
         android:id="@+id/edtTitle"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:textColor="#f72585"
+        android:textColorHint="#88f72585"
         android:ems="10"
+        android:layout_marginVertical="5dp"
+        android:textStyle="bold"
         android:hint="اضف عنوان للمنشور"
         android:inputType="textPersonName"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
 
          />
 <LinearLayout
+    android:elevation="4dp"
+    android:background="@drawable/post_job_2"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:orientation="horizontal"
     android:layout_gravity="end"
-    android:layout_margin="20dp"
-    android:gravity="end">
+    android:layout_marginVertical="5dp"
+    android:gravity="center">
     <Spinner
+        android:layout_gravity="center"
         android:id="@+id/spnrJobs"
         android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:entries="@array/jobTitle_array"
         />
     <TextView
+        android:textColor="#b5179e"
         android:layout_width="79dp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:text="نوع العمل :"
-        android:layout_gravity="end"/>
+        android:layout_gravity="center"/>
 
 
 
 </LinearLayout>
     <LinearLayout
+
+        android:background="@drawable/post_job_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_margin="20dp"
-        android:gravity="end">
+        android:layout_height="40dp"
+        android:elevation="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginVertical="5dp"
+        android:gravity="center">
         <Spinner
             android:id="@+id/spnrEmpJobs"
             android:layout_width="205dp"
@@ -59,21 +90,29 @@
             android:entries="@array/jobs_array"
             />
         <TextView
+            android:textColor="#7209b7"
+            android:textStyle="bold"
             android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:text="المركز الشاغر :"
-            android:layout_gravity="end"/>
+            android:layout_gravity="center"/>
 
 
 
     </LinearLayout>
     <LinearLayout
+        android:background="@drawable/post_job_4"
+        android:elevation="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_margin="20dp"
-        android:gravity="end">
+
+       >
         <Spinner
             android:id="@+id/spnJonPlace"
             android:layout_width="205dp"
@@ -81,82 +120,110 @@
             android:entries="@array/cities_array"
             />
         <TextView
+            android:textStyle="bold"
+            android:textColor="#560bad"
             android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:text="مكان العمل :"
-            android:layout_gravity="end"/>
+            android:layout_gravity="center"/>
 
 
 
     </LinearLayout>
 
     <LinearLayout
+        android:background="@drawable/post_job_5"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="end">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
         <TextView
+            android:textColor="#480ca8"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ساعات"></TextView>
 
         <Spinner
+            android:paddingRight="0dp"
             android:id="@+id/spnrTimeTo"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
+            android:gravity="end"
             android:layout_height="wrap_content"
             android:entries="@array/workingTime_array"
 
             />
         <TextView
+            android:textColor="#480ca8"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="الى"></TextView>
 
         <Spinner
+           android:paddingRight="0dp"
+
             android:id="@+id/spnrTimeFrom"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
+            android:gravity="end"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:entries="@array/workingTime_array" />
         <TextView
+            android:textColor="#480ca8"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="من"></TextView>
         <TextView
+            android:textColor="#480ca8"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ساعات العمل المتوقعة :  "
-            android:layout_gravity="end"/>
+            android:layout_gravity="center"/>
 
 
 
     </LinearLayout>
     <LinearLayout
+        android:background="@drawable/post_job_6"
+        android:elevation="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="end">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
    <RadioGroup
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="horizontal">
        <RadioButton
-
+           android:buttonTint="#3a0cb1"
+           android:textColor="#3a0ca3"
+           android:textStyle="bold"
+           android:textSize="13dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:id="@+id/rdbEvn"
            android:layout_marginRight="20dp"
            android:text="مسائي"></RadioButton>
        <RadioButton
+           android:textSize="13dp"
+           android:buttonTint="#3a0cb1"
+           android:textColor="#3a0ca3"
+           android:textStyle="bold"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:id="@+id/rdbMor"
@@ -164,6 +231,8 @@
            android:text="صباحي"></RadioButton>
    </RadioGroup>
         <TextView
+            android:textColor="#3a0ca3"
+            android:textStyle="bold"
             android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:text="وقت العمل :"
@@ -174,14 +243,17 @@
 
     </LinearLayout>
     <LinearLayout
+        android:background="@drawable/post_job_7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:elevation="5dp"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="end">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center">
         <Spinner
             android:id="@+id/spnrPayTime"
             android:layout_width="205dp"
@@ -189,71 +261,104 @@
             android:entries="@array/paymentTime"
             />
         <TextView
+            android:textStyle="bold"
+            android:textColor="#3f37c9"
             android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:text="الدفع :"
-            android:layout_gravity="end"/>
+            android:layout_gravity="center"/>
 
 
 
     </LinearLayout>
+
     <LinearLayout
+        android:background="@drawable/post_job_8"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="40dp"
+        android:elevation="5dp"
         android:layout_gravity="end"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity="end">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="شيقل"
-            android:layout_marginRight="20dp" ></TextView>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtPayAmount"
-            android:hint="الاجرة اليومية"
-            android:inputType="number"></EditText>
-        <TextView
-            android:layout_width="79dp"
-            android:layout_height="wrap_content"
-            android:text="الاجرة :"
-            android:gravity="center|start"
-            android:layout_gravity="center_vertical|end"/>
-
-
-
-    </LinearLayout>
-    <EditText
-        android:id="@+id/edtComment"
-        android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="#4361ee"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="شيقل"></TextView>
+
+        <EditText
+            android:textColor="#3161ee"
+            android:textStyle="bold"
+            android:textColorHint="#883161ee"
+            android:textSize="13dp"
+            android:backgroundTint="@color/Transparent"
+            android:id="@+id/edtPayAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="الاجرة اليومية"
+            android:inputType="number"></EditText>
+
+        <TextView
+            android:textColor="#4361ee"
+            android:textStyle="bold"
+            android:layout_width="79dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center|start"
+            android:text="الاجرة :" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:textColorHint="#884895ef"
+        android:textColor="#4895ef"
+        android:textStyle="bold"
+        android:background="@drawable/post_job_9"
+        android:id="@+id/edtComment"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_height="40dp"
         android:ems="10"
         android:hint="اضف تعليقا"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="4"
-        android:gravity="center_horizontal"
+
         android:layout_centerHorizontal="true"
 
         />
     <Button
+        android:background="@drawable/search_tools_background"
         android:id="@+id/btnPost"
+        android:textColor="#ffffff"
+        android:textSize="17dp"
+        android:elevation="5dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:ems="10"
+
+        android:textStyle="bold"
         android:text="انشر الوظيفة الشاغرة"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
 
         />
 </LinearLayout>
+</ScrollView>

@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/main_background"
     tools:openDrawer="left"
     android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
+
         />
 
 <FrameLayout
@@ -20,13 +22,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:id="@+id/myFrame">
 </FrameLayout>
+
 <com.ismaeldivita.chipnavigation.ChipNavigationBar
+    android:background="@drawable/bottom_nav_background"
     android:layout_width="match_parent"
     android:id="@+id/bottm_nav"
     android:layout_height="72dp"
     android:layout_alignParentBottom="true"
     android:elevation="16dp"
     android:padding="8dp"
+    android:layout_margin="3dp"
     app:cnb_menuResource="@menu/bottom_nav"
     />
 

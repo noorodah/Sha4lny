@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -62,6 +64,30 @@ public class lookingForEmp extends AppCompatActivity {
         spnrPaymentTime = findViewById(R.id.spnrPayTime);
         spnrWorkHoursFrom=findViewById(R.id.spnrTimeFrom);
         spnrWorkHoursTo = findViewById(R.id.spnrTimeTo);
+        /// This is to change spinners color
+        // job
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(lookingForEmp.this,R.array.jobTitle_array,R.layout.spinner_job);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrJob.setAdapter(adapter);
+        //job title
+        adapter = ArrayAdapter.createFromResource(lookingForEmp.this,R.array.jobs_array,R.layout.spinner_jobtitle);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrJobTitle.setAdapter(adapter);
+        // cities
+        adapter = ArrayAdapter.createFromResource(lookingForEmp.this,R.array.cities_array,R.layout.spinner_citites);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrJobLoc.setAdapter(adapter);
+        //working hours
+        adapter = ArrayAdapter.createFromResource(lookingForEmp.this,R.array.workingTime_array,R.layout.spinner_working_hours);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrWorkHoursFrom.setAdapter(adapter);
+        spnrWorkHoursTo.setAdapter(adapter);
+        //working time
+        adapter = ArrayAdapter.createFromResource(lookingForEmp.this,R.array.paymentTime,R.layout.spinner_workingtime);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrPaymentTime.setAdapter(adapter);
+
+
         edtJobComment = findViewById(R.id.edtComment);
         /// Edit texts
         edtJobComment = findViewById(R.id.edtComment);
@@ -239,5 +265,11 @@ alreadyPosted = false;
                 editor.commit();}
 
         });
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(lookingForEmp.this,MainActivity.class);
+        startActivity(intent);
+
     }
 }

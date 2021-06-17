@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
         username = sharedpreferences.getString("username", "null");
 
-
         // getting user's info
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -156,15 +155,15 @@ public class MainActivity extends AppCompatActivity {
 
                 homeFrag = new HomeFragment(userClass.getName(), userClass.getAge(), userClass.getLocation(), userClass.getJob());
                 // first time to open activity
-                if (savedInstanceState == null) {
+
+          /*      if (savedInstanceState == null) {
                     bottomNav.setItemSelected(R.id.nav_home, true);
                     fragmentManager = getSupportFragmentManager();
-
-
                     fragmentManager.beginTransaction().replace(R.id.myFrame, homeFrag, "HOME").commit();
-                    HomeFragment f = (HomeFragment) getSupportFragmentManager().findFragmentByTag("HOME");
 
-                }
+
+                }*/
+
 
             }
 
@@ -203,6 +202,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        fragmentManager = getSupportFragmentManager();
+        bottomNav.setItemSelected(R.id.nav_srch_worker,true);
+        fragmentManager.beginTransaction().replace(R.id.myFrame, new srchForEmpFrag()).commit();
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        fragmentManager = getSupportFragmentManager();
+        bottomNav.setItemSelected(R.id.nav_srch_worker,true);
+        fragmentManager.beginTransaction().replace(R.id.myFrame,new srchForEmpFrag()).commit();
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
 switch (item.getItemId()){
     case R.id.menuLogOut:
@@ -224,13 +241,16 @@ switch (item.getItemId()){
 
         break;
 }
+
         //respond to menu item selection
 return super.onOptionsItemSelected(item);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
+        
         inflater.inflate(R.menu.menu, menu);
+
         return true;
     }
     void setupToolbar() {

@@ -1,86 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    tools:context=".register.registerationActivity"
+android:background="@drawable/main_background"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_gravity="center_vertical"
+    android:paddingBottom="20dp"
+    android:background="@drawable/job_list_2"
+   android:elevation="20dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginVertical="20dp"
+    android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
     android:paddingTop="40dp"
-    tools:context=".register.registerationActivity">
+   >
 
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-       >
+
         <EditText
+            android:foregroundTint="@color/white"
+            android:backgroundTint="@color/white"
+            android:layout_marginVertical="20dp"
             android:layout_width="250dp"
             android:layout_height="50dp"
+            android:textColor="@color/white"
+            android:hint="الاسم الكامل"
+            android:textColorHint="@color/white"
             android:id="@+id/edtRegFullName"
             ></EditText>
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="الاسم الرباعي :"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-   >
+
+
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="العمر"
+            android:textColorHint="@color/white"
+            android:layout_marginVertical="20dp"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegAge"
             android:inputType="date"
             ></EditText>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="العمر  :        "></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-       >
+
+
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="مكان السكن"
+            android:textColorHint="@color/white"
+            android:layout_marginVertical="20dp"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegLoc"
             ></EditText>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="مكان السكن :"
-            android:inputType="text"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-       >
+
+
         <EditText
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:hint="رقم الهاتف"
+            android:gravity="end"
+            android:textColorHint="@color/white"
+            android:layout_marginVertical="20dp"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:id="@+id/edtRegPhone"
             android:inputType="phone"
             ></EditText>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="رقم الهاتف :"></TextView>
-    </LinearLayout>
+
 
     <Button
+        android:background="@drawable/sender_bubble"
+        android:elevation="5dp"
+        android:layout_marginVertical="20dp"
         android:id="@+id/btnRegNext"
         android:layout_width="200dp"
         android:layout_height="50dp"
@@ -91,4 +89,4 @@
     </Button>
 
 
-</LinearLayout>
+</LinearLayout></ScrollView>

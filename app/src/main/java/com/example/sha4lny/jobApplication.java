@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sha4lny.classes.AcceptedJobs;
 import com.example.sha4lny.classes.Job;
 import com.example.sha4lny.classes.MessageModel;
 import com.example.sha4lny.classes.MessageOFIntereset;
@@ -43,6 +44,7 @@ public class jobApplication extends AppCompatActivity {
     // DATABASE REFERENCE
     DatabaseReference myRef;
     FirebaseDatabase database;
+    String acceptedJobID;
     ////
     TextView txtJobTitle,txtJobType,txtOpenPos,txtJobLoc,txtWorkingHours,txtWorkingTime,txtPaymentMethod,txtSalary,txtComment;
     Button btnShowInterest;
@@ -94,125 +96,171 @@ public class jobApplication extends AppCompatActivity {
 
         // showing interest in an application
         boolean comingFromChat = sharedpreferences.getBoolean("fromChat",false);
+        boolean comingFromMain = sharedpreferences.getBoolean("fromCheckPost",false);
+        editor.putBoolean("fromCheckPost",false);
+        editor.commit();
         sender = sharedpreferences.getString("interestedPerson","");
         editor.putBoolean("fromChat",false).commit();
 
-        if(comingFromChat)
-        ownerSideWork();
-        else
-        viewSideWork();
-
+        if(comingFromMain)
+            ownerSideWorkFromMain();
+        else {
+            if (comingFromChat)
+                ownerSideWork();
+            else
+                viewSideWork();
+        }
 
 
 
 
     }
 
+    private void ownerSideWorkFromMain() {
+      database.getReference("AcceptedJobs").addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot snapshot) {
+              for(DataSnapshot data : snapshot.getChildren()){
+                  AcceptedJobs acceptedJobs = data.getValue(AcceptedJobs.class);
+                  if(job.getJobID().equals(acceptedJobs.getJobID()))
+                  {
+                      btnShowInterest.setClickable(true);
+                      btnShowInterest.setText("تم بالفعل الموافقة على توظيف " + acceptedJobs.getApplicatnFullName() + " انقر هنا للمحادثة معه");
+                      btnShowInterest.setOnClickListener(new View.OnClickListener() {
+                          @Override
+                          public void onClick(View v) {
+
+                              editor.putString("senderUserName", acceptedJobs.getApplicantUserName());
+                              editor.putString("senderName", acceptedJobs.getApplicatnFullName());
+                              editor.commit();
+
+                              Intent intent = new Intent(jobApplication.this, ChatActivity.class);
+                              startActivity(intent);
+                          }
+                      });
+                  }
+              }
+          }
+
+          @Override
+          public void onCancelled(@NonNull DatabaseError error) {
+
+          }
+      });
+    }
+
     private void ownerSideWork() {
 
-        database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                MessageOFIntereset messageOFIntereset = new MessageOFIntereset();
-                for(DataSnapshot data : snapshot.getChildren()){
-                    if(data.getValue(MessageOFIntereset.class).getSender().
-                            equals(sender)&& data.getValue(MessageOFIntereset.class).
-                            getReciver().equals(user.getUsername())&&data.getValue(MessageOFIntereset.class).
-                            getJobID().equals(job.getJobID())){
-                        messageOFIntereset = data.getValue(MessageOFIntereset.class);
+
+            database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    MessageOFIntereset messageOFIntereset = new MessageOFIntereset();
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        if (data.getValue(MessageOFIntereset.class).getSender().
+                                equals(sender) && data.getValue(MessageOFIntereset.class).
+                                getReciver().equals(user.getUsername()) && data.getValue(MessageOFIntereset.class).
+                                getJobID().equals(job.getJobID())) {
+                            messageOFIntereset = data.getValue(MessageOFIntereset.class);
+                        }
                     }
-                }
-                if (messageOFIntereset.isAccepted()){
-                    senderFullName = messageOFIntereset.getSenderFullName();
-                    btnShowInterest.setClickable(true);
-                    btnShowInterest.setText("تم بالفعل الموافقة على توظيف " + senderFullName+ " انقر هنا للمحادثة معه");
-                    btnShowInterest.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
 
-                            editor.putString("senderUserName",sender);
-                            editor.putString("senderName",senderFullName);
-                            editor.commit();
+                    if (messageOFIntereset.isAccepted()) {
 
-                            Intent intent = new Intent(jobApplication.this, ChatActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
-                else {
-                    btnShowInterest.setText("الموافقة على التوظيف ");
-                    btnShowInterest.setClickable(false);
-                    database.getReference("Users").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot data : snapshot.getChildren()){
-                                if(data.getValue(User.class).getUsername().equals(sender))
-                                    senderUser = data.getValue(User.class);
+                                        senderFullName =sharedpreferences.getString("interestedPerson","");
+                                        btnShowInterest.setClickable(true);
+                                        btnShowInterest.setText("تم بالفعل الموافقة على توظيف " + senderFullName + " انقر هنا للمحادثة معه");
+                                        btnShowInterest.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+
+                                                editor.putString("senderUserName", sender);
+                                                editor.putString("senderName", senderFullName);
+                                                editor.commit();
+
+                                                Intent intent = new Intent(jobApplication.this, ChatActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
+                     else {
+                        btnShowInterest.setText("الموافقة على التوظيف ");
+                        btnShowInterest.setClickable(false);
+                        database.getReference("Users").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot data : snapshot.getChildren()) {
+                                    if (data.getValue(User.class).getUsername().equals(sender))
+                                        senderUser = data.getValue(User.class);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-                    if(senderUser!=null)
-                        btnShowInterest.setClickable(true);
+                            }
+                        });
+                        if (senderUser != null)
+                            btnShowInterest.setClickable(true);
 
-                    btnShowInterest.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            new AlertDialog.Builder(jobApplication.this)
-                                    .setTitle("تاكيد")
-                                    .setMessage("هل انت متاكد انك تريد توظيف " + senderUser.getName() +" لهذا العمل؟" )
+                        btnShowInterest.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new AlertDialog.Builder(jobApplication.this)
+                                        .setTitle("تاكيد")
+                                        .setMessage("هل انت متاكد انك تريد توظيف " + senderUser.getName() + " لهذا العمل؟")
 
-                                    .setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("نعم ", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                        .setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("نعم ", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                    database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            MessageOFIntereset tempInt = new MessageOFIntereset();
-                                            for(DataSnapshot data : snapshot.getChildren()){
-                                                if(job.getJobID().equals(data.getValue(MessageOFIntereset.class).getJobID()) && senderUser.getUsername().equals(data.getValue(MessageOFIntereset.class).getSender())){
-                                                    tempInt = data.getValue(MessageOFIntereset.class);
-                                                    tempInt.setAccepted(true);
-                                                    data.getRef().setValue(tempInt).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            Toast.makeText(jobApplication.this, "تمت الموافقة بنجاح", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(jobApplication.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                                    setJobToTrueFirebase();
+                                        database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                MessageOFIntereset tempInt = new MessageOFIntereset();
+                                                for (DataSnapshot data : snapshot.getChildren()) {
+                                                    if (job.getJobID().equals(data.getValue(MessageOFIntereset.class).getJobID()) && senderUser.getUsername().equals(data.getValue(MessageOFIntereset.class).getSender())) {
+                                                        tempInt = data.getValue(MessageOFIntereset.class);
+                                                        tempInt.setAccepted(true);
+                                                        AcceptedJobs acceptedJobs = new AcceptedJobs(job.getJobID(),user.getUsername(),user.getName(),tempInt.getSender(),tempInt.getSenderFullName());
+                                                        database.getReference("AcceptedJobs").push().setValue(acceptedJobs);
+                                                        data.getRef().setValue(tempInt).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                Toast.makeText(jobApplication.this, "تمت الموافقة بنجاح", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(jobApplication.this,MainActivity.class);
+                                                                startActivity(intent);
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(jobApplication.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                        setJobToTrueFirebase();
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                        }
-                                    });
+                                            }
+                                        });
 
-                                }
-                            })
-                                    .setNegativeButton("لا" ,null).show();
-                        }
-                    });
+                                    }
+                                })
+                                        .setNegativeButton("لا", null).show();
+                            }
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
         editor.putBoolean("fromChat",false).commit();
     }
@@ -225,6 +273,25 @@ public class jobApplication extends AppCompatActivity {
                     if(job.getJobID().equals(data.getValue(Job.class).getJobID())){
                         job.setAccepted(true);
                         data.getRef().setValue(job);
+
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        database.getReference("JobInterests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data : snapshot.getChildren()){
+                    MessageOFIntereset message = data.getValue(MessageOFIntereset.class);
+                    if(message.getJobID().equals(job.getJobID())){
+                        message.setAcceptedByOther(true);
+                        data.getRef().setValue(message);
                     }
                 }
             }
@@ -329,4 +396,11 @@ public class jobApplication extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(jobApplication.this,MainActivity.class);
+        startActivity(intent);
+
+    }
 }

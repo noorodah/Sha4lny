@@ -1,8 +1,16 @@
 <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_marginBottom="40dp"
     android:minHeight="?attr/actionBarSize"
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-   />
+    android:background="@drawable/toolbar_main"
+    android:elevation="3dp"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginTop="2dp"
+    app:layout_goneMarginBottom="10dp"
+    app:titleTextColor="@color/white"
+    android:outlineSpotShadowColor="@color/white"
+    android:outlineAmbientShadowColor="@color/white"
+    app:subtitleTextColor="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

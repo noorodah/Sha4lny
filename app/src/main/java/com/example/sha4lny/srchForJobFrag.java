@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -84,6 +85,12 @@ Spinner spnrJobType,spnrCity;
         spnrCity = rootView.findViewById(R.id.spnSrchCity);
 
         spnrJobType = rootView.findViewById(R.id.spnrSrchJobs);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.jobs_array,R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrJobType.setAdapter(adapter);
+        ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity(),R.array.cities_array,R.layout.spinner_item);
+        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spnrCity.setAdapter(adapter1);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
